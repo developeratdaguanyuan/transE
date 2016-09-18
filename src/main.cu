@@ -11,7 +11,7 @@
 #define LEARNRATE 0.01
 
 int main() {
-  string model_dir = "./model/";
+  string model_dir = "model/";
   string train_data = "data/FB5M-triples.txt";
 
   // Load Train Data
@@ -21,7 +21,6 @@ int main() {
   
   // Load Valid Data
   ValidDataLoader valid_data_loader(VALIDSIZE);
-  valid_data_loader.loadData("/home/dzhou/data/fb15k/valid.digit");
 
   // Batch Data Loader
   BatchDataLoader batch_data_loader(BATCHSIZE, DIMENSION);
@@ -33,6 +32,5 @@ int main() {
   TransE transE(&train_data_loader, &valid_data_loader, &batch_data_loader,
                 &entities, &relations, 1000, 10, LEARNRATE, model_dir);
   transE.train();
-
 }
 

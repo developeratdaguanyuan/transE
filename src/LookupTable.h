@@ -96,34 +96,5 @@ void LookupTable::save(std::string &path) {
   free(h_table);
 }
 
-/*
-void debugLookupTable(struct LookupTable *p_table, int *idx) {
-  int rows = p_table->rows;
-  int cols = p_table->cols;
-  float *h_B = (float*)malloc(sizeof(float) * rows * cols);
-  cudaMemcpy(h_B, p_table->d_table, sizeof(float) * rows * cols, cudaMemcpyDeviceToHost);
-
-  for (int n = 0; n < 100; n++) {
-    int i = idx[n];
-    printf("%d::", i);
-    for (int j = 0; j < cols; j++) 
-      printf("%f ", *(h_B + i * cols + j));
-    printf("\n");
-  }
-*/
-
-/*
-  float min = 1, max = -1;
-  for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < cols; j++) {
-      printf("%f ", *(h_B + i * cols + j));
-      max = (max > *(h_B + i * cols + j)) ? max : *(h_B + i * cols + j);
-      min = (min < *(h_B + i * cols + j)) ? min : *(h_B + i * cols + j);
-    }
-    printf("\n");
-  }
-  printf("max: %f, min: %f\n", max, min);*/
-//}
-
 #endif
 

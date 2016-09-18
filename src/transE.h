@@ -246,21 +246,7 @@ void TransE::test() {
   ResidualVectorT<<<blocksPerGrim, dimension>>>(p_valid_data_loader->devSub,
     p_valid_data_loader->devPrd, p_valid_data_loader->devObj,
     valid_num, p_entities->d_table, p_relations->d_table, residual_vector);
-//  printf("GetResidualVector: %s\n", cudaGetErrorString(cudaGetLastError()));
   L2NormT<<<blocksPerGrim, 1>>>(residual_vector, valid_num, dimension, residual_distance);
-//  printf("GetL2: %s\n", cudaGetErrorString(cudaGetLastError()));
-
-/*
-  float *h_test = (float*)malloc(sizeof(float) * VALIDNUM);
-  printf("%p\n", (void*)h_test);
-  cudaMemcpy(h_test, residual_distance, sizeof(float) * VALIDNUM, cudaMemcpyDeviceToHost);
-  printf("Memcpy: %s\n", cudaGetErrorString(cudaGetLastError()));
-
-  for (int i = 0; i < VALIDNUM; i++) {
-    printf("%f ", h_test[i]);
-  }
-  printf("\n");
-*/
 
   float *count;
   cudaMalloc(&count, sizeof(float) * valid_num);
@@ -280,22 +266,11 @@ void TransE::test() {
   cudaMemcpy(&total_count, count, sizeof(float), cudaMemcpyDeviceToHost);
   std::cout << "total count: " << total_count << std::endl;
   
-  /*
-  int *h_test = (int*)malloc(sizeof(int) * VALIDNUM);
-  cudaMemcpy(h_test, count, sizeof(int) * VALIDNUM, cudaMemcpyDeviceToHost);
-  printf("Memcpy: %s\n", cudaGetErrorString(cudaGetLastError()));
-  for (int i = 0; i < VALIDNUM; i++) {
-    printf("%d ", h_test[i]);
-  }
-  printf("\n");
-  */
-  
   cudaFree(residual_vector);
   cudaFree(residual_distance);
   cudaFree(count);
   cudaFree(rd_current);
 }
-
 
 void TransE::train() {
   int batch_rows = p_batch_data_loader->rows;
@@ -489,16 +464,8 @@ void TransE::train() {
       p_entities->d_table, p_entities->rows, p_entities->cols, d_entity_id_updated, ptr, l2_norm);
     Normalize<<<ptr, batch_cols>>>(
       p_entities->d_table, p_entities->rows, p_entities->cols, d_entity_id_updated, ptr, l2_norm);
-/*
-    L2NormByIndex<<<1, ptr>>>(
-      p_entities->d_table, p_entities->rows, p_entities->cols, d_entity_id_updated, ptr, l2_norm);
-    float *test_l2_norm = (float*)malloc(sizeof(float) * ptr);;
-    cudaMemcpy(test_l2_norm, l2_norm, sizeof(float) * ptr, cudaMemcpyDeviceToHost);
-    for (int j = 0; j < ptr; j++) {
-      std::cout << test_l2_norm[j] << " ";
-    }
-    std::cout << std::endl;
-*/
+    
+
     cudaFree(m_pos);
     cudaFree(m_neg_sub);
     cudaFree(m_neg_prd);
