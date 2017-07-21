@@ -1,8 +1,6 @@
 #ifndef LOOKUPTABLE_H
 #define LOOKUPTABLE_H
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <fstream>
 #include <string>
 #include <curand.h>

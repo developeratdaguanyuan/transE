@@ -346,7 +346,7 @@ void TransE::train() {
     if (i != 0 && i % (p_train_data_loader->getSize() / batch_size) == 0) {
       int cur_loop_index = (int)((float)i / p_train_data_loader->getSize() * batch_size);
       float cur_loop_error = loop_error / p_train_data_loader->getSize();
-      printf("Loops  [%d] Loss [%f]\n", cur_loop_index, cur_loop_error);
+      printf("Loops [%d] Loss [%f]\n", cur_loop_index, cur_loop_error);
       loop_error = 0;
       // Evaluation
       // test();

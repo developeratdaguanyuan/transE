@@ -57,9 +57,9 @@ int DataLoader::loadData(string path) {
   reader.close();
   size = sub.size();
 
-  cout << size << endl;
-  cout << maxEnt << endl;
-  cout << maxPrd << endl;
+  cout << "triple size: " << size << endl;
+  cout << "max Entity ID: " << maxEnt << endl;
+  cout << "max Predicate ID: " << maxPrd << endl;
   
   return 0;
 }
